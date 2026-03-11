@@ -8,6 +8,7 @@ import io.ktor.server.routing.*
 import com.example.lddm_merge_skills.db.DatabaseFactory
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.swagger.swaggerUI
 
 
 fun main() {
@@ -25,5 +26,7 @@ fun Application.module() {
     routing {
         get("/") { call.respondText("Serviço Ktor ativo.") }
         get("/health") { call.respondText("OK") }
+
+        swaggerUI(path = "swagger", swaggerFile = "openapi/documentation.yaml")
     }
 }
