@@ -20,4 +20,15 @@ class SupabaseCourseRepository : CourseRepository {
     override suspend fun create(course:Course): Course = withContext(Dispatchers.IO){
         return@withContext table.insert(course) {select()}.decodeSingle<Course>()
     }
+
+    override suspend fun update(
+        id: Int,
+        course: Course
+    ): Course {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun delete(id: Int) {
+        TODO("Not yet implemented")
+    }
 }
