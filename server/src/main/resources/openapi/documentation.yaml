@@ -16,6 +16,8 @@ tags:
     description: Acompanhamento do estudante
 
 paths:
+
+
   /courses:
     get:
       tags: [Cursos]
@@ -29,6 +31,25 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Course'
+    post:
+      tags: [ Cursos ]
+      summary: Criar un novo Curso
+      description: Adiciona um novo curso ao catálogo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '201':
+          description: Curso criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Formato de curso inválido
 
   /courses/{id}/lessons:
     get:

@@ -3,6 +3,7 @@ package com.example.lddm_merge_skills.routes
 import com.example.lddm_merge_skills.repository.CourseRepository
 import com.example.lddm_merge_skills.repository.LessonRepository
 import io.ktor.http.*
+import io.ktor.server.request.receive
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -26,4 +27,17 @@ fun Route.courseRoutes(
         val lessons = lessonRepository.getByCourseId(id)
         call.respond(lessons)
     }
+
+    // POST /COURSES
+    post("/courses"){
+        try {
+            val courseRequest = call.receive<com.example.lddm_merge_skills.model.Course>()
+            val createdCourse = courseRepository.create(courseRequest)
+            call.respond(HttpStatusCode.Created, createdCourse)
+        } catch (e: Exception) {
+            call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Formato de curso inválido"))
+        }
+    }
+
+    //
 }
