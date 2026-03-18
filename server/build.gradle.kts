@@ -44,4 +44,7 @@ dependencies {
 
     implementation(libs.supabase.postgrest.kt)
     implementation(libs.ktor.client.cio.jvm)
+
+    implementation(libs.dotenv)
+
 }

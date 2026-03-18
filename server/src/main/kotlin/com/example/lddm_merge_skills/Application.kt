@@ -13,11 +13,13 @@ import com.example.lddm_merge_skills.routes.courseRoutes
 import com.example.lddm_merge_skills.routes.lessonRoutes
 import com.example.lddm_merge_skills.routes.questionRoutes
 import com.fatec.lddm_merge_skills.routes.progressRoutes
+import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.plugins.swagger.swaggerUI
+
 
 
 fun main() {
@@ -26,6 +28,11 @@ fun main() {
 }
 
 fun Application.module() {
+    val dotenv = dotenv() // Carrega o arquivo .env obrigatoriamente
+
+    // Exemplo de leitura direta
+    val useSupabase = dotenv["USE_SUPABASE"]?.toBoolean() ?: false
+
     install(ContentNegotiation) {
         json()
     }
@@ -40,7 +47,9 @@ fun Application.module() {
         }
     }
 
-    DatabaseFactory.init() // Delegação do banco inserida na inicialização do Ktor
+    if (!useSupabase) {
+        DatabaseFactory.init() // Engine Local
+    }
 
     //  Instanciando os repositórios (Exposed = banco real)
     val courseRepository = ExposedCourseRepository()
