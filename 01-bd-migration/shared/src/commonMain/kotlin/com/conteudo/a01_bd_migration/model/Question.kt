@@ -1,4 +1,17 @@
 package com.conteudo.a01_bd_migration.model
 
-class Question {
-}
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Question(
+    val id: Int,
+    @SerialName("lesson_id")
+    val lessonId: Int,                       // Chave Estrangeira
+    val question: String,
+    val code: String? = null,
+    val options: List<String> = emptyList(),
+    @SerialName("correct_answer")
+    val correctAnswer: Int? = null,
+    val order: Int? = null
+)
