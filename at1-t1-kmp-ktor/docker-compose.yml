@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:15-alpine    # Versão otimizada que reflete o ambiente do Supabase
+    container_name: plants-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"              # Mapeia Porta PC:Porta Container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: plants-db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
