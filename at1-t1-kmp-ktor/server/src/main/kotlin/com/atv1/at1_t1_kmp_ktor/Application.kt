@@ -11,9 +11,10 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.response.respondRedirect
-import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
+import io.ktor.server.plugins.openapi.*
+import io.ktor.server.plugins.swagger.*
 
 
 
@@ -37,9 +38,17 @@ fun Application.module() {
     val speciesRepository = ExposedSpeciesRepository()
 
     routing {
+
+
         get("/") {
-            call.respondRedirect("/plants")
+            call.respondRedirect("/swagger")
         }
+
+        swaggerUI(path = "swagger", swaggerFile = "openapi/documentation.yaml")
+        openAPI(path = "openapi", swaggerFile = "openapi/documentation.yaml")
+
+        plantRoutes(plantRepository)
+        speciesRoutes(speciesRepository)
 
         plantRoutes(plantRepository)
         speciesRoutes(speciesRepository)

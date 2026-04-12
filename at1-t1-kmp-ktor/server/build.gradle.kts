@@ -43,4 +43,12 @@ dependencies {
 
     // Interação oficial JDBC
     implementation(libs.postgresql)
+
+    // Swagger UI
+    implementation("io.ktor:ktor-server-openapi:3.1.3")
+    implementation("io.ktor:ktor-server-swagger:3.1.3")
+    implementation("io.ktor:ktor-server-status-pages:3.1.3")
+
+
+
 }
